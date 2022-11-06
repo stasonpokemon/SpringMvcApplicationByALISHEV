@@ -38,7 +38,6 @@ public class PeopleController {
     public String showPersonPage(@PathVariable("id") Integer id,
                                  Model model) {
         Person person = personDAO.findById(id);
-        System.out.println(person);
         model.addAttribute("person", person);
         return "people/show-person";
     }
