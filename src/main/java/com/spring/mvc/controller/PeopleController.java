@@ -2,7 +2,10 @@ package com.spring.mvc.controller;
 
 import com.spring.mvc.DAO.PersonDAO;
 import com.spring.mvc.entity.Person;
+
 import javax.validation.Valid;
+
+import com.spring.mvc.util.PersonValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,10 +21,9 @@ public class PeopleController {
     @Autowired
     private PersonDAO personDAO;
 
-    /**
-     * @param model
-     * @return
-     */
+    @Autowired
+    private PersonValidator personValidator;
+
     @GetMapping()
     public String showPeoplePage(Model model) {
         List<Person> people = personDAO.findAll();
@@ -29,11 +31,7 @@ public class PeopleController {
         return "people/show-people";
     }
 
-    /**
-     * @param id
-     * @param model
-     * @return
-     */
+
     @GetMapping("/{id}")
     public String showPersonPage(@PathVariable("id") Integer id,
                                  Model model) {
@@ -42,23 +40,16 @@ public class PeopleController {
         return "people/show-person";
     }
 
-    /**
-     * @param model
-     * @return
-     */
     @GetMapping("/new")
     public String newPersonPage(Model model) {
         model.addAttribute("person", new Person());
         return "people/new";
     }
 
-    /**
-     * @param person
-     * @return
-     */
     @PostMapping
     public String saveNewPerson(@ModelAttribute("person") @Valid Person person,
                                 BindingResult bindingResult) {
+        personValidator.validate(person, bindingResult);
         if (bindingResult.hasErrors()) {
             return "people/new";
         }
@@ -66,27 +57,18 @@ public class PeopleController {
         return "redirect:/people";
     }
 
-    /**
-     * @param id
-     * @param model
-     * @return
-     */
     @GetMapping("/{id}/edit")
     public String editPersonPage(@PathVariable("id") Integer id,
                                  Model model) {
         model.addAttribute("person", personDAO.findById(id));
         return "people/edit";
     }
-
-    /**
-     * @param person
-     * @param id
-     * @return
-     */
+    
     @PatchMapping("/{id}")
     public String saveEditPerson(@ModelAttribute("person") @Valid Person person,
                                  BindingResult bindingResult,
                                  @PathVariable("id") Integer id) {
+        personValidator.validate(person, bindingResult);
         if (bindingResult.hasErrors()) {
             return "people/edit";
         }

@@ -11,6 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public class PersonDAOImpl implements PersonDAO {
@@ -28,6 +29,12 @@ public class PersonDAOImpl implements PersonDAO {
     public Person findById(final Integer id) {
         return jdbcTemplate.query("SELECT * FROM person WHERE id = ?", new Object[]{id}, new BeanPropertyRowMapper<>(Person.class)).
                 stream().findAny().orElse(null);
+    }
+
+    @Override
+    public Optional<Person> findByEmail(String email) {
+        return jdbcTemplate.query("SELECT * FROM person WHERE email = ?", new Object[]{email}, new BeanPropertyRowMapper<>(Person.class)).
+                stream().findAny();
     }
 
     @Override

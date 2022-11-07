@@ -7,10 +7,10 @@
 <body>
 <a href="/people">Back</a>
 <br>
-Id: <h3 th:text="${person.getId()}"/>
-Name: <h3 th:text="${person.getName()}"/>
-Age: <h3 th:text="${person.getAge()}"/>
-Email: <h3 th:text="${person.getEmail()}"/>
+Id: <div th:text="${person.getId()}"></div>
+Name: <div th:text="${person.getName()}"></div>
+Age: <div th:text="${person.getAge()}"></div>
+Email: <div th:text="${person.getEmail()}"></div>
 <br>
 <a th:href="@{/people/{id}/edit(id = ${person.getId()})}">Edit</a>
 <form th:method="DELETE" th:action="@{/people/{id}(id=${person.getId()})}">
