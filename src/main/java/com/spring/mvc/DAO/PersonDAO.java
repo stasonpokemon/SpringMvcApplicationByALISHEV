@@ -29,4 +29,8 @@ public interface PersonDAO {
     void update(Integer id, Person person);
 
     void delete(Integer id);
+
+    void testMultipleUpdate();
+
+    void testBatchUpdate();
 }
