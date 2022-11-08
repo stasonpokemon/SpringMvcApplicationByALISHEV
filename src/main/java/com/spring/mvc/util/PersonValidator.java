@@ -12,6 +12,7 @@ public class PersonValidator implements Validator {
 
     @Autowired
     private PersonDAO personDAO;
+
     @Override
     public boolean supports(Class<?> clazz) {
         return Person.class.equals(clazz);
@@ -22,8 +23,8 @@ public class PersonValidator implements Validator {
         Person person = (Person) target;
 
         //  Проверяем, есть ли в бд пользователь с такой же почтой
-        if(personDAO.findByEmail(person.getEmail()).isPresent()){
-            errors.rejectValue("email","", "This email address is used");
+        if (personDAO.findByEmail(person.getEmail()).isPresent()) {
+            errors.rejectValue("email", "", "This email address is used");
         }
 
     }
