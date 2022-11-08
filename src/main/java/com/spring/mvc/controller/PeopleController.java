@@ -63,7 +63,7 @@ public class PeopleController {
         model.addAttribute("person", personDAO.findById(id));
         return "people/edit";
     }
-    
+
     @PatchMapping("/{id}")
     public String saveEditPerson(@ModelAttribute("person") @Valid Person person,
                                  BindingResult bindingResult,

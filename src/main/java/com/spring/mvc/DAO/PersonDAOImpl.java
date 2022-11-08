@@ -39,14 +39,14 @@ public class PersonDAOImpl implements PersonDAO {
 
     @Override
     public void save(Person person) {
-        jdbcTemplate.update("INSERT INTO person(name, age, email)  VALUES(?, ?, ?)",
-                person.getName(), person.getAge(), person.getEmail());
+        jdbcTemplate.update("INSERT INTO person(name, age, email, address)  VALUES(?, ?, ?, ?)",
+                person.getName(), person.getAge(), person.getEmail(), person.getAddress());
     }
 
     @Override
     public void update(Integer id, Person person) {
-        jdbcTemplate.update("UPDATE person SET name = ?, age = ?, email = ? WHERE id = ?",
-                person.getName(), person.getAge(), person.getEmail(), id);
+        jdbcTemplate.update("UPDATE person SET name = ?, age = ?, email = ?, address = ?WHERE id = ?",
+                person.getName(), person.getAge(), person.getEmail(), person.getAddress(), id);
     }
 
     @Override
@@ -64,7 +64,7 @@ public class PersonDAOImpl implements PersonDAO {
         List<Person> people = create1000people();
         long startTime = System.currentTimeMillis();
         for (Person person : people) {
-            jdbcTemplate.update("INSERT INTO person(name, age, email) VALUES(?, ?, ?)", person.getName(), person.getAge(), person.getEmail());
+            jdbcTemplate.update("INSERT INTO person(name, age, email, address) VALUES(?, ?, ?, ?)", person.getName(), person.getAge(), person.getEmail(), person.getAddress());
         }
 
         System.out.println(System.currentTimeMillis() - startTime);
@@ -75,12 +75,13 @@ public class PersonDAOImpl implements PersonDAO {
     public void testBatchUpdate() {
         List<Person> people = create1000people();
         long startTime = System.currentTimeMillis();
-        jdbcTemplate.batchUpdate("INSERT INTO person(name, age, email) VALUES(?, ?, ?)", new BatchPreparedStatementSetter() {
+        jdbcTemplate.batchUpdate("INSERT INTO person(name, age, email, address) VALUES(?, ?, ?, ?)", new BatchPreparedStatementSetter() {
             @Override
             public void setValues(PreparedStatement preparedStatement, int i) throws SQLException {
                 preparedStatement.setString(1, people.get(i).getName());
                 preparedStatement.setInt(2, people.get(i).getAge());
                 preparedStatement.setString(3, people.get(i).getEmail());
+                preparedStatement.setString(4, people.get(i).getAddress());
             }
 
             @Override
@@ -96,7 +97,7 @@ public class PersonDAOImpl implements PersonDAO {
     private List<Person> create1000people() {
         List<Person> people = new ArrayList<>();
         for (int i = 0; i < 1000; i++) {
-            people.add(new Person(i, "Name " + i, 30, "test" + i + "@mail.ru"));
+            people.add(new Person(i, "Name " + i, 30, "test" + i + "@mail.ru", "some address"));
         }
         return people;
     }
