@@ -64,6 +64,7 @@ public class PeopleController {
         return "people/edit";
     }
 
+    // Исправить валидацию email
     @PatchMapping("/{id}")
     public String saveEditPerson(@ModelAttribute("person") @Valid Person person,
                                  BindingResult bindingResult,

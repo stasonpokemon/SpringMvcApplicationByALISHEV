@@ -1,5 +1,6 @@
 package com.spring.mvc.entity;
 
+import javax.persistence.*;
 import javax.validation.constraints.*;
 
 import lombok.AllArgsConstructor;
@@ -9,8 +10,12 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Entity
+@Table(name = "person")
 public class Person {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @NotEmpty(message = "Name should be not empty")
