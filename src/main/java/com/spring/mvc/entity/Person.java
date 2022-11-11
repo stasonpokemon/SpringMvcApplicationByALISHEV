@@ -16,7 +16,7 @@ public class Person {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     @NotEmpty(message = "Name should be not empty")
     @Size(min = 2, max = 30, message = "The name must be between 2 and 30 characters long.")
