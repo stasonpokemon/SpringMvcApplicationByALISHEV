@@ -1,5 +1,6 @@
 package com.spring.mvc.service;
 
+import com.spring.mvc.entity.Mood;
 import com.spring.mvc.entity.Person;
 import com.spring.mvc.repo.PersonRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,7 @@ public class PersonService {
     @Transactional
     public Person save(Person person) {
         person.setCreateAt(new Date());
+        person.setMood(Mood.CALM);
         return personRepo.save(person);
     }
 

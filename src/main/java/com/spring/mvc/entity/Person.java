@@ -46,4 +46,8 @@ public class Person {
     @Column(name = "create_at")
     private Date createAt;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "mood")
+    private Mood mood;
+
 }
