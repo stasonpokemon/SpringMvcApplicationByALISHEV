@@ -12,6 +12,7 @@ Name: <div th:text="${person.getName()}"></div>
 Age: <div th:text="${person.getAge()}"></div>
 Email: <div th:text="${person.getEmail()}"></div>
 Address: <div th:text="${person.getAddress()}"></div>
+Data of birthday: <div th:text="${person.getDateOfBirthday()}"></div>
 <br>
 <a th:href="@{/people/{id}/edit(id = ${person.getId()})}">Edit</a>
 <form th:method="DELETE" th:action="@{/people/{id}(id=${person.getId()})}">
